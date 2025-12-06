@@ -1,287 +1,201 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Obito Portal</title>
+    <title>Secure System</title>
     <style>
-        *{margin:0;padding:0;box-sizing:border-box;-webkit-user-select:none;-moz-user-select:none;user-select:none}
-        body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);min-height:100vh;display:flex;justify-content:center;align-items:center;padding:15px;position:relative;overflow-x:hidden}
-        .bg{position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at 20% 30%,rgba(230,92,0,0.1)0%,transparent 50%);animation:rotate 20s linear infinite;z-index:-1}
-        @keyframes rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
-        .login-box,.portal{background:rgba(255,255,255,0.08);backdrop-filter:blur(15px);border-radius:20px;box-shadow:0 20px 50px rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.1);position:relative}
-        .login-box{padding:40px 30px;text-align:center;max-width:400px;width:100%}
-        .login-box::before{content:'⚡';font-size:60px;display:block;margin-bottom:20px;animation:float 3s ease-in-out infinite}
-        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-        .login-box h1{color:#e65c00;margin-bottom:10px;font-size:32px;text-shadow:0 0 20px rgba(230,92,0,0.5)}
-        .login-box p{color:rgba(255,255,255,0.7);margin-bottom:25px;font-size:14px}
-        input{width:100%;padding:15px;margin-bottom:20px;border:2px solid rgba(230,92,0,0.3);background:rgba(0,0,0,0.3);border-radius:12px;font-size:16px;color:white;transition:0.3s}
-        input::placeholder{color:rgba(255,255,255,0.5)}
-        input:focus{outline:none;border-color:#e65c00;box-shadow:0 0 20px rgba(230,92,0,0.3)}
-        button{padding:15px;width:100%;background:linear-gradient(135deg,#e65c00 0%,#ff8c00 100%);color:white;border:none;border-radius:12px;font-size:17px;font-weight:bold;cursor:pointer;transition:0.3s;box-shadow:0 5px 20px rgba(230,92,0,0.4)}
-        button:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(230,92,0,0.6)}
-        .error{color:#ff4757;margin-top:10px;min-height:20px}
-        .portal{display:none;width:100%;max-width:1400px;padding:30px;max-height:90vh;overflow-y:auto;margin:20px}
-        .portal::-webkit-scrollbar{width:8px}
-        .portal::-webkit-scrollbar-track{background:rgba(255,255,255,0.05)}
-        .portal::-webkit-scrollbar-thumb{background:linear-gradient(135deg,#e65c00 0%,#ff8c00 100%);border-radius:4px}
-        .header{text-align:center;margin-bottom:30px}
-        .header h1{color:#e65c00;font-size:36px;margin-bottom:10px;animation:glow 2s infinite}
-        @keyframes glow{0%,100%{text-shadow:0 0 20px rgba(230,92,0,0.5)}50%{text-shadow:0 0 30px rgba(230,92,0,0.8)}}
-        .search{max-width:600px;margin:0 auto 25px;position:relative}
-        .search input{width:100%;padding:14px 45px 14px 15px;margin:0}
-        .search::after{content:'🔍';position:absolute;right:15px;top:50%;transform:translateY(-50%)}
-        .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-bottom:25px}
-        .card{background:linear-gradient(135deg,rgba(230,92,0,0.15)0%,rgba(255,140,0,0.1)100%);padding:20px;border-radius:15px;border:1px solid rgba(230,92,0,0.2);transition:0.3s}
-        .card:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(230,92,0,0.3)}
-        .card h3{color:#ff8c00;margin-bottom:15px;font-size:20px;border-bottom:2px solid rgba(255,140,0,0.3);padding-bottom:10px}
-        .link{background:rgba(255,255,255,0.05);padding:12px;margin-bottom:8px;border-radius:8px;transition:0.3s;border:1px solid transparent}
-        .link:hover{background:rgba(230,92,0,0.2);transform:translateX(8px);border-color:rgba(230,92,0,0.3)}
-        .link a{color:rgba(255,255,255,0.9);text-decoration:none;display:flex;justify-content:space-between;align-items:center;font-size:14px}
-        .link a::after{content:'→';transition:0.3s}
-        .link:hover a::after{transform:translateX(5px)}
-        .footer{text-align:center;margin-top:25px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.1)}
-        .logout{background:linear-gradient(135deg,#ff4757 0%,#ff6348 100%);padding:12px 40px;display:inline-block}
-        .security{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);display:none;justify-content:center;align-items:center;z-index:1000}
-        .security-box{background:rgba(255,255,255,0.1);padding:30px;border-radius:15px;text-align:center;max-width:400px;width:90%}
-        .security-box h2{color:#ff4757;margin-bottom:15px}
-        @media(max-width:768px){.grid{grid-template-columns:1fr}.header h1{font-size:28px}.portal{padding:20px}.login-box{padding:30px 20px}}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:Arial,sans-serif;background:#0a0a14;color:#fff;height:100vh;display:flex;justify-content:center;align-items:center}
+        .login-box{background:rgba(30,30,40,0.95);padding:40px;border-radius:15px;text-align:center;width:90%;max-width:400px;border:1px solid rgba(255,100,0,0.3)}
+        .login-box h2{color:#ff6600;margin-bottom:20px}
+        input{width:100%;padding:12px;margin-bottom:20px;border:2px solid rgba(255,100,0,0.3);background:rgba(0,0,0,0.3);border-radius:8px;color:white}
+        button{width:100%;padding:12px;background:#ff6600;color:white;border:none;border-radius:8px;font-weight:bold;cursor:pointer}
+        .error{color:#ff4757;margin-top:10px}
+        .portal{display:none;width:90%;max-width:1200px;background:rgba(30,30,40,0.95);padding:30px;border-radius:15px;max-height:80vh;overflow-y:auto}
+        .tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px;margin-top:30px}
+        .tool-card{background:rgba(40,40,50,0.7);padding:20px;border-radius:10px;border:1px solid rgba(255,100,0,0.2)}
+        .tool-card h3{color:#ff9900;margin-bottom:15px}
+        .tool-link{display:block;background:rgba(255,255,255,0.05);padding:10px;margin:8px 0;border-radius:6px;color:#fff;text-decoration:none}
+        .tool-link:hover{background:rgba(255,100,0,0.2)}
     </style>
 </head>
 <body>
-    <div class="bg"></div>
-    <div class="security" id="security">
-        <div class="security-box">
-            <h2>🚫 Access Denied</h2>
-            <p style="color:rgba(255,255,255,0.8);margin-bottom:20px">Code extraction is blocked!</p>
-            <button onclick="hideSecurity()">OK</button>
-        </div>
-    </div>
-    <div class="login-box" id="login">
-        <h1>OBITO PORTAL</h1>
-        <p>Enter Access Code</p>
-        <input type="password" id="pass" placeholder="Access Code" autocomplete="off">
-        <button id="loginBtn">🔓 Access</button>
+    <div class="login-box" id="loginBox">
+        <h2>🔐 SECURE SYSTEM</h2>
+        <input type="password" id="password" placeholder="Enter access code">
+        <button onclick="checkAccess()">ACCESS</button>
         <div class="error" id="error"></div>
     </div>
+    
     <div class="portal" id="portal">
-        <div class="header">
-            <h1>🌀 OBITO PORTAL V7 🌀</h1>
-            <p style="color:rgba(255,255,255,0.8)">Ultimate Resource Hub - 250,000+ PKR Value</p>
-        </div>
-        <div class="search">
-            <input type="text" id="search" placeholder="Search...">
-        </div>
-        <div class="grid" id="grid"></div>
-        <div class="footer">
-            <button class="logout" id="logout">🚪 Logout</button>
-        </div>
+        <h2 style="color:#ff6600;text-align:center;margin-bottom:30px">🛠️ TOOLS PORTAL</h2>
+        <input type="text" placeholder="Search tools..." oninput="searchTools(this.value)" style="width:100%;padding:12px;margin-bottom:30px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,100,0,0.3);border-radius:8px;color:white">
+        
+        <div class="tools-grid" id="toolsGrid"></div>
+        
+        <button onclick="logout()" style="margin-top:30px;background:#ff4757">LOGOUT</button>
     </div>
-    <script>
-        // 🔒 Security Setup
-        document.addEventListener('contextmenu', e => { e.preventDefault(); showSecurity(); });
-        document.addEventListener('keydown', e => {
-            if(e.key=='F12'||(e.ctrlKey&&e.shiftKey&&'IJ'.includes(e.key))||(e.ctrlKey&&e.key=='U')) {
-                e.preventDefault(); showSecurity();
-            }
+
+<script>
+// Hidden passwords (hex encoded)
+var passwords = [
+    '4f6269746f32303234', // Obito2024
+    '536861646f7732303234', // Shadow2024
+    '55636869686132303234', // Uchiha2024
+    '4461726b32303234', // Dark2024
+    '437962657232303234', // Cyber2024
+    '4d617374657232303234', // Master2024
+    '416b617473756b6932303234', // Akatsuki2024
+    '506f7274616c32303234', // Portal2024
+    '456c69746532303234', // Elite2024
+    '53656372657432303234', // Secret2024
+    '4e696e6a6132303234', // Ninja2024
+    '506f77657232303234', // Power2024
+    '48696464656e32303234' // Hidden2024
+];
+
+// Hidden links (encoded in chunks)
+var linkChunks = [
+    ['aHR0cHM6Ly9mYWl6YW54b2JpdG9kb3dubG9hZGVy', 'LnZlcmNlbC5hcHAv'],
+    ['aHR0cHM6Ly9vYml0b2ltYWdlbWFrZXIudmVyY2Vs', 'LmFwcA=='],
+    ['aHR0cHM6Ly9vYml0b3VjaGlkYXRhYmFzZS52ZXJj', 'ZWwuYXBwLw=='],
+    ['aHR0cHM6Ly9vYml0b3Ntc2JvbWJlci52ZXJjZWwu', 'YXBw'],
+    ['aHR0cHM6Ly9vYml0b2FsbHNvY2lhbG1lZGlhZG93', 'bmxvYWRlci52ZXJjZWwuYXBw'],
+    ['aHR0cHM6Ly93d3cubWVkaWFmaXJlLmNvbS9maWxlL3', 'l0Z3RicjA5cXF5dGh2ZWIvVElLX1RPS19MSVZFXyUyNTdDX01IX1RFQ0guYXBrL2ZpbGU='],
+    ['aHR0cHM6Ly93d3cubWVkaWFmaXJlLmNvbS9mb2xkZXIvb', 'TBiYWIyd2Rjc21kNi9UaWtUb2srVW5saW1pdGVkK2xpa2Vz'],
+    ['aHR0cHM6Ly9mYWNlYm9vay1yZXBvcnRzLnZlcmNlbC5hcHAv'],
+    ['aHR0cHM6Ly93d3cubWVkaWFmaXJlLmNvbS9mb2xkZXIva3', 'h6bmtneW5xNGZhcC9GYitCYW4rTWV0aG9k'],
+    ['aHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tL2RyaXZlL2ZvbGRlcnMv', 'MTNmWk4yZDNXMlAzUmdTMHFBcnpMNE9IcGZ6TmJLb3hROQ=='],
+    ['aHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tL2RyaXZlL2ZvbGRlcnMvM', 'URUNWNvaHB3SlBzT05tQllUMzFJTnUwN05xNWdfTlVV'],
+    ['aHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tL2RyaXZlL2ZvbGRlcnMvM', 'UxWaFJYUVZYMlRJcV9YdkxmY1JqTU5OTzQza3h0M0lN'],
+    ['aHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tL2RyaXZlL2ZvbGRlcnMvM', 'WJ2d2s1VWNSU0cyTWVyNzl6ZU9fZnU4T0hLWm1XRFNC'],
+    ['aHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tL2RyaXZlL2ZvbGRlcnMvM', 'Ud6YjJBTGdVVEFwOVVzSF9zYVpEZE9PX3Foa01vMURH'],
+    ['aHR0cHM6Ly9tZWdhLm56L2ZvbGRlci9OdWxsVkxoUSM0X1Z', 'KVU8wR3FoWElScjZSLXpBRUdn'],
+    ['aHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tL2RyaXZlL21vYmlsZS9mb2xkZXJzLz', 'FCaFVQOGFnTmVoQkgxQU9keE9YeVBKTTVDZC1RRURHdw==']
+];
+
+// Tool data
+var tools = [
+    {name: "Downloader", category: "🔧 Tools"},
+    {name: "Image Maker", category: "🔧 Tools"},
+    {name: "Database", category: "🔧 Tools"},
+    {name: "SMS Bomber", category: "🔧 Tools"},
+    {name: "Social Downloader", category: "🔧 Tools"},
+    {name: "TikTok Live APK", category: "📱 Social"},
+    {name: "TikTok Likes", category: "📱 Social"},
+    {name: "FB Report Tool", category: "📱 Social"},
+    {name: "FB Ban Methods", category: "📱 Social"},
+    {name: "Unlimited Gmail", category: "📧 Email"},
+    {name: "YouTube Course", category: "🎓 Courses"},
+    {name: "YouTube Automation", category: "🎓 Courses"},
+    {name: "Fiverr Course", category: "💼 Earning"},
+    {name: "Blogging Course", category: "💼 Earning"},
+    {name: "Hacking Course", category: "🔐 Security"},
+    {name: "Carding Course", category: "💳 Carding"}
+];
+
+// Convert text to hex
+function toHex(text) {
+    return text.split('').map(c => 
+        c.charCodeAt(0).toString(16).padStart(2, '0')
+    ).join('');
+}
+
+// Decode link chunks
+function decodeLink(index) {
+    if (linkChunks[index].length === 2) {
+        return atob(linkChunks[index][0]) + atob(linkChunks[index][1]);
+    } else {
+        return atob(linkChunks[index][0]);
+    }
+}
+
+// Check access
+function checkAccess() {
+    var input = document.getElementById('password').value;
+    var inputHex = toHex(input);
+    
+    if (passwords.includes(inputHex)) {
+        document.getElementById('loginBox').style.display = 'none';
+        document.getElementById('portal').style.display = 'block';
+        loadTools();
+    } else {
+        document.getElementById('error').textContent = '❌ Invalid code!';
+        document.getElementById('password').value = '';
+    }
+}
+
+// Load tools
+function loadTools() {
+    var grid = document.getElementById('toolsGrid');
+    grid.innerHTML = '';
+    
+    // Group tools by category
+    var categories = {};
+    tools.forEach((tool, index) => {
+        if (!categories[tool.category]) {
+            categories[tool.category] = [];
+        }
+        categories[tool.category].push({name: tool.name, link: decodeLink(index)});
+    });
+    
+    // Create category cards
+    for (var category in categories) {
+        var card = document.createElement('div');
+        card.className = 'tool-card';
+        card.innerHTML = '<h3>' + category + '</h3>';
+        
+        categories[category].forEach(item => {
+            var link = document.createElement('a');
+            link.className = 'tool-link';
+            link.href = item.link;
+            link.target = '_blank';
+            link.textContent = item.name;
+            card.appendChild(link);
         });
-        if(window!=window.top) window.top.location=window.location;
         
-        // Codes (obfuscated)
-        const codes = ['Obito','Shadow','Uchiha','Dark','Cyber','Master','Akatsuki','Portal','Elite','Secret','Ninja','Power','Hidden'].map(c=>c+'2024');
-        
-        // Complete Resources data with ALL new tools
-        const resources = [
-            {cat:"🔥 OBITO TOOLS",links:[
-                {n:"Faizan Downloader",u:"https://faizanxobitodownloader.vercel.app/"},
-                {n:"Image Maker Tool",u:"https://obitoimagemaker.vercel.app"},
-                {n:"Database Tool",u:"https://obitouchihadatabase.vercel.app/"},
-                {n:"SMS Bomber Tool",u:"https://obitosmsbomber.vercel.app"},
-                {n:"Social Media Downloader",u:"https://obitoallsocialmediadownloader.vercel.app"}
-            ]},
-            {cat:"📱 TikTok Tools",links:[
-                {n:"TikTok Live APK",u:"https://www.mediafire.com/file/ytgtbr09qythveb/TIK_TOK_LIVE_%257C_MH_TECH.apk/file"},
-                {n:"TikTok Unlimited Likes",u:"https://www.mediafire.com/folder/m0bib2wdcsmd6/TikTok+Unlimited+likes"},
-                {n:"TikTok ForYou Trick",u:"https://drive.google.com/file/d/1XUfR8LP8MPkBp5Kr1dOaHMpIKnryzEat/view"},
-                {n:"TikTok Account Method",u:"https://youtu.be/r31NhUDZypU"},
-                {n:"TikTok Hack Tool 2025",u:"https://www.mediafire.com/file/ppezg901kv3yq0v/TikTok_Hack.7z/file"}
-            ]},
-            {cat:"📘 Facebook Tools",links:[
-                {n:"Facebook Reports Sender",u:"https://facebook-reports.vercel.app/"},
-                {n:"Facebook Ban Methods",u:"https://www.mediafire.com/folder/kxznkgynq4fap/Fb+Ban+Method"},
-                {n:"Recover Hacked FB Account",u:"https://drive.google.com/drive/folders/1GdO7kI3AELLW93Ezmv4N7pJJeas0IQyJ"},
-                {n:"All Ban Methods",u:"https://drive.google.com/drive/folders/1kcaIInJV4C6ntf4Lvy7uBZlJOsWKj_4x"}
-            ]},
-            {cat:"📧 Email & Gmail",links:[
-                {n:"Unlimited Gmail Method",u:"https://www.mediafire.com/file/7o170c2ekmfdh2v/UNLIMITED+GMAIL+METHOD+1+BY+JADOON.zip/file"},
-                {n:"Gmail Unlimited No Phone",u:"https://www.mediafire.com/file/watf6hh6jhgx995/GMAIL_WITHOUT_PHONE_NUMBERS_.zip/file"},
-                {n:"Hack Gmail Recover Method",u:"https://drive.google.com/drive/folders/17cHpsnTcaM8fjD_pRD7jdBTY4DEWZai_"},
-                {n:"All Country Fake Numbers",u:"https://www.mediafire.com/file/8zukotshbjnfpk0/ALL_COUNTRYS_FAKE_NUMBER_METHOD_BY_JUTTXBRAND.rar/file"}
-            ]},
-            {cat:"💬 WhatsApp Tools",links:[
-                {n:"WhatsApp Fake Chat",u:"https://www.mediafire.com/folder/or9jgu4qjg2de/whatsapp+chat"},
-                {n:"Perma WhatsApp Unban APK",u:"https://www.mediafire.com/folder/h179c5sg8yeaf/Perma_Unban_Apk"},
-                {n:"WhatsApp Anti Crash APK",u:"https://www.mediafire.com/file/zl9ojebb17oteo2/com_whatsapp_2_24_17_2_241702008_minAPI21arm64_v8anodpi_apkmirror.apk/file"},
-                {n:"Number Hide APK",u:"https://www.mediafire.com/file/de8hz1gsr4vq1zr/FAKE_WHATSAPP_1.0.apk/file"}
-            ]},
-            {cat:"📱 Mobile Tools",links:[
-                {n:"Track Mobile Location",u:"https://www.mediafire.com/folder/r01749bcfuygl/Track+Mobile"},
-                {n:"Mobile Hack Tool",u:"https://www.mediafire.com/file/9mmxeb4elxvek5q/Mobile_Hack.7z/file"},
-                {n:"SIM Database",u:"https://nasir-sim-database.vercel.app/"},
-                {n:"Non-PTA to PTA Method",u:"https://www.mediafire.com/file/numvfv1ku9qod7f/VID_20241215_202143_437.mp4/file"}
-            ]},
-            {cat:"🎥 YouTube Tools",links:[
-                {n:"YouTube Copy Paste Course",u:"https://drive.google.com/drive/folders/1DT5cohpwJPsONmBYT31INu07Nq5g_NUU"},
-                {n:"YouTube Automation Course",u:"https://drive.google.com/drive/folders/1LVhRXQVX2TIq_XvLfcRjMNNO43kxt3IM"},
-                {n:"YouTube Long Videos Method",u:"https://drive.google.com/drive/folders/1tW47PkqEeioNde3pup8FhDJssCK3meiv"},
-                {n:"YouTube Shorts Viral Method",u:"https://drive.google.com/drive/folders/1FUhjQqgUlhnL48E5hCjhwjKsEn3XMT2T"},
-                {n:"Text to Video Tool",u:"https://tex-to-video.vercel.app/"}
-            ]},
-            {cat:"🎮 Games & Betting",links:[
-                {n:"Teen Patti Hack",u:"https://www.mediafire.com/file/itsx8yqg2yvozez/Dragon_Tiger_Predict_GPT_By_ProfessorxAbheebhai.apk/file"},
-                {n:"All Bet Games Hack",u:"https://www.mediafire.com/folder/x5n954j8z90lm/All+Games+Hack"},
-                {n:"92 Jeeto Hacks",u:"https://www.mediafire.com/file/ejlsjntjascx5pq/[_%F0%9D%97%A2%F0%9D%97%9F%F0%9D%97%97-%F0%9D%97%AB-%F0%9D%97%9C%F0%9D%97%9E_%F0%9D%97%A7%F0%9D%97%A2%F0%9D%97%A2%F0%9D%97%9F%F0%9D%97%9E%F0%9D%97%9C%F0%9D%97%A7_%E2%8D%9F_]_9.8.apk/file"},
-                {n:"Trading Hack",u:"https://www.mediafire.com/file/bkdit2b2ia73hp0/Trading_Signals_Free_By_AbheeBhai_Mods.rar/file"}
-            ]},
-            {cat:"💰 Earning Courses",links:[
-                {n:"Fiverr Course",u:"https://drive.google.com/drive/folders/1bvwk5UcRSG2Mer79zeO_fu8OHKZmWDTB"},
-                {n:"Social Media Marketing",u:"https://drive.google.com/drive/folders/1Ku1wWKr-Yi5AO2SHwS7FMfzanwmiDiHN"},
-                {n:"Blogging Course",u:"https://drive.google.com/drive/folders/1Gzb2ALgUTAp9UsH_saZDdOO_qhkMo1DG"},
-                {n:"Gemini Method",u:"https://drive.google.com/drive/folders/1HlaK9Oo8vqjJRwGEPVzfZkC2BrBb9JeA"},
-                {n:"Invitation Templates",u:"https://drive.google.com/drive/folders/15XFOl9Drz62AfPc0IoyfR89iLn3eYaIf"}
-            ]},
-            {cat:"🔐 Security & Hacking",links:[
-                {n:"Website Hacking Course",u:"https://mega.nz/folder/NullVLhQ#4_VJUO0GqhXIRr6R-zAEGg"},
-                {n:"MITM Attack Tool",u:"https://github.com/websploit/websploit"},
-                {n:"Hacker's Notebook",u:"https://snapdragon-copper-dd1.notion.site/A-Hacker-s-Notebook-Real-Techniques-from-the-World-of-Bug-Bounty-20ea797be4c680e6b542c20a943782d6"},
-                {n:"Cracking Pack Tools",u:"https://a-tushar-82q-fef07c6bf20a.herokuapp.com/821030/Cracking-Pack-Tools+by+%40the_hacking_zone.zip"},
-                {n:"FIR Registration Tool",u:"https://shadowtools.site/shadowfir.php"}
-            ]},
-            {cat:"🦇 RAT Tools",links:[
-                {n:"Anubis RAT Latest",u:"https://a-tushar-82q-fef07c6bf20a.herokuapp.com/601409/Anubis+Rat+Latest.zip"},
-                {n:"G700 RAT V5 VIP",u:"https://a-tushar-82q-fef07c6bf20a.herokuapp.com/660228/G-700+RAT+V5+VIP+Cracked.zip"},
-                {n:"Craxs Rat 7.1",u:"https://mega.nz/file/wPkSXIwS#s7NoNWiZtrkIhc31M6KMfQU4rxUddMBfST7DXC5HoxI"},
-                {n:"Red Bat Rat",u:"https://www.mediafire.com/file/h6z0lqfji6kdqaq/Red_Bat%2540suboxone_hackers.zip/file"}
-            ]},
-            {cat:"💳 Carding & Fake ID",links:[
-                {n:"Carding Complete Course",u:"https://drive.google.com/drive/mobile/folders/1BhUP8agNehBH1AOdxOXyPJM5Cd-QEDGw"},
-                {n:"Pakistan CNIC Maker",u:"https://www.mediafire.com/file/c23bh1p5dr09ogi/Fake_Ids_maker%2528for_Pakistani%2529.apk/file"},
-                {n:"ATM Hacking Course",u:"https://mrlegendhub.blogspot.com/2023/12/atm-hacking-course.html"},
-                {n:"Carding Android Course",u:"https://mrlegendhub.blogspot.com/2023/12/carding-with-android-phone-all-carding.html"}
-            ]},
-            {cat:"📚 Programming Courses",links:[
-                {n:"C++ Complete Course",u:"https://findmycourse.in/course/complete-c-plus-programming-course-from-basic-to-expert"},
-                {n:"Linux Courses",u:"https://drive.google.com/drive/folders/1Yt-12fwzWWc-WgrvimNlxyePvK1qJ690"},
-                {n:"Linux 2.0 Course",u:"https://drive.google.com/drive/folders/0B9Y_x5BdD5vGVEpMYllhQk1rOVk"},
-                {n:"PowerShell Course",u:"https://drive.google.com/drive/folders/1Yt-12fwzWWc-WgrvimNlxyePvK1qJ690"}
-            ]},
-            {cat:"🎁 Free Resources",links:[
-                {n:"2000+ Digital Products",u:"https://drive.google.com/drive/folders/1M3BpScvkUWFODLHjK0CbRvHwPkt0ZUMl"},
-                {n:"800+ Premium Courses",u:"https://www.mediafire.com/folder/xhenh4efgw6t7/800+Corse"},
-                {n:"Free Gift Card Method",u:"https://drive.google.com/file/d/1JSajbF27LLDzGMown2O1C_rKjFivtfNM/view"},
-                {n:"Lucky Name Checker",u:"https://shadowtools.site/Luckname.php"}
-            ]},
-            {cat:"💣 SMS & Bomber",links:[
-                {n:"PK Bomber APK",u:"https://www.mediafire.com/file/wq8vj2iikft9j9u/SMS_BOMBER_1.0.apk/file"},
-                {n:"SMS Bomber APK",u:"https://www.mediafire.com/file/menvw422s86p0ey/com.romreviewer.bombitup-4.3.apk/file"},
-                {n:"Gallery Crash Tool",u:"https://www.mediafire.com/file/ua3grks0dz5h0hh/gallery_crash.zip/file"}
-            ]},
-            {cat:"🔧 MOD APKs & Tools",links:[
-                {n:"Remini MOD",u:"https://www.mediafire.com/file/1nhthm5kt7wg0es/Remini_3.7.1020.202514479.apk/file"},
-                {n:"Wink Premium",u:"https://www.mediafire.com/file/m4jyh9lk4fbgndu/Wink_2.13.0.apk/file"},
-                {n:"InShot Premium",u:"https://www.mediafire.com/file/jiyv52a343qmbtj/InShot_2.152.1504.apk/file"},
-                {n:"CapCut Pro for iPhone",u:"https://www.mediafire.com/folder/t24kpppgsvacd/CAPCUT+PRO+4+IPHONE+SHARED+BY+DARK+LEGEND"}
-            ]},
-            {cat:"🎯 OSCP & Security",links:[
-                {n:"OSCP Course",u:"https://www.udemy.com/course/onestophackingmarathon"},
-                {n:"Free OSCP Notes",u:"https://drive.google.com/drive/mobile/folders/12Mvq6kE2HJDwN2CZhEGWizyWt87YunkU"},
-                {n:"Cybersecurity Basics",u:"https://mega.nz/folder/RvgHWBbD#Qr6CW1O4eezqilYbE9JCPA"}
-            ]},
-            {cat:"🔐 Crypters",links:[
-                {n:"Titans Stealers",u:"https://www.mediafire.com/file/8zy4u559vgebdte/Titans_stealers_%2540suboxone_hackers.zip/file"},
-                {n:"NuKe Cryptor",u:"https://www.mediafire.com/file/uivy2grxd09lwam/Nuke_Cryptor%2540suboxone_hackers.zip/file"}
-            ]},
-            {cat:"📶 WiFi & VPN",links:[
-                {n:"WiFi Hacking Course",u:"https://drive.google.com/file/d/1nvH320EDqW-6bA0DqxM_6DZiSYF67Voi/view"},
-                {n:"SuperVPN Premium",u:"https://www.mediafire.com/file/ng58l6rvthowf8d/SuperVPN_PATCHED_BY_ABHEEBHAI.apk/file"}
-            ]}
-        ];
-        
-        // DOM Elements
-        const login=document.getElementById('login'),
-              portal=document.getElementById('portal'),
-              pass=document.getElementById('pass'),
-              loginBtn=document.getElementById('loginBtn'),
-              logout=document.getElementById('logout'),
-              error=document.getElementById('error'),
-              search=document.getElementById('search'),
-              grid=document.getElementById('grid'),
-              security=document.getElementById('security');
-        
-        // Functions
-        function showSecurity(){
-            security.style.display='flex';
-            setTimeout(()=>security.style.display='none',5000);
-        }
-        function hideSecurity(){
-            security.style.display='none';
-        }
-        function showError(msg){
-            error.textContent=msg;
-            setTimeout(()=>error.textContent='',3000);
-        }
-        
-        // Login
-        loginBtn.onclick=()=>{
-            const val=pass.value.trim();
-            if(codes.includes(val)){
-                login.style.display='none';
-                portal.style.display='block';
-                loadGrid();
-            }else{
-                showError('❌ Invalid Code!');
-                pass.value='';
-            }
-        };
-        
-        // Load Resources
-        function loadGrid(){
-            grid.innerHTML=resources.map(r=>`
-                <div class="card">
-                    <h3>${r.cat}</h3>
-                    ${r.links.map(l=>`
-                        <div class="link">
-                            <a href="${l.u}" target="_blank">${l.n}</a>
-                        </div>
-                    `).join('')}
-                </div>
-            `).join('');
-        }
-        
-        // Search
-        search.oninput=()=>{
-            const term=search.value.toLowerCase();
-            document.querySelectorAll('.card').forEach(card=>{
-                card.style.display=card.textContent.toLowerCase().includes(term)?'block':'none';
-            });
-        };
-        
-        // Logout
-        logout.onclick=()=>{
-            portal.style.display='none';
-            login.style.display='block';
-            pass.value='';
-            pass.focus();
-            search.value='';
-        };
-        
-        // Enter key
-        pass.onkeypress=e=>{
-            if(e.key=='Enter') loginBtn.click();
-        };
-        
-        // Focus on load
-        pass.focus();
-    </script>
+        grid.appendChild(card);
+    }
+}
+
+// Search tools
+function searchTools(query) {
+    var cards = document.querySelectorAll('.tool-card');
+    query = query.toLowerCase();
+    
+    cards.forEach(card => {
+        var text = card.textContent.toLowerCase();
+        card.style.display = text.includes(query) ? 'block' : 'none';
+    });
+}
+
+// Logout
+function logout() {
+    document.getElementById('portal').style.display = 'none';
+    document.getElementById('loginBox').style.display = 'block';
+    document.getElementById('password').value = '';
+    document.getElementById('error').textContent = '';
+}
+
+// Enter key support
+document.getElementById('password').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') checkAccess();
+});
+
+// Security - disable right click
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+});
+
+// Security - disable dev tools
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'F12' || 
+        (e.ctrlKey && e.shiftKey && ['I','J'].includes(e.key)) || 
+        (e.ctrlKey && e.key === 'U')) {
+        e.preventDefault();
+    }
+});
+</script>
 </body>
-  </html>
+</html>
